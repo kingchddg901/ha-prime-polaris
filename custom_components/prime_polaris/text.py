@@ -78,6 +78,31 @@ TEXT_DESCRIPTIONS: tuple[PrimePolarisTextDescription, ...] = (
         native_max=16,
         purpose="weight_lb",
     ),
+    # Override sources — entity_ids the user trusts more than the OEM
+    # probes. When set, the predictor reads from them instead of the
+    # device's own readings. Useful for ThermoMaven, Inkbird, instant-read,
+    # or any HA temperature entity that's more accurate than the grill's.
+    PrimePolarisTextDescription(
+        key="chamber_override_entity",
+        name="Chamber Override Entity",
+        icon="mdi:thermometer-lines",
+        native_max=128,
+        purpose="chamber_override",
+    ),
+    PrimePolarisTextDescription(
+        key="probe_1_override_entity",
+        name="Probe 1 Override Entity",
+        icon="mdi:thermometer-probe",
+        native_max=128,
+        purpose="probe_1_override",
+    ),
+    PrimePolarisTextDescription(
+        key="probe_2_override_entity",
+        name="Probe 2 Override Entity",
+        icon="mdi:thermometer-probe",
+        native_max=128,
+        purpose="probe_2_override",
+    ),
 )
 
 

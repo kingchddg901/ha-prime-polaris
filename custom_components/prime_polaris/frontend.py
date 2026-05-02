@@ -32,7 +32,7 @@ _LOGGER = logging.getLogger(__name__)
 
 CARD_FILENAME = "ha-prime-polaris-card.js"
 CARD_URL_PATH = f"/{DOMAIN}_card/{CARD_FILENAME}"
-CARD_VERSION  = "0.4.2"  # bump alongside src/constants.js → CARD_VERSION
+CARD_VERSION  = "0.5.1"  # bump alongside src/constants.js → CARD_VERSION
 
 
 async def async_register_card(hass: HomeAssistant) -> None:

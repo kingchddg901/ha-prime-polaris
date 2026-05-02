@@ -164,15 +164,27 @@ class PrimePolarisCoordinator(DataUpdateCoordinator[dict[str, Any]]):
             self._process_alarm_events(data.get(FIELD_ALARM_EVENT))
             self.session_tracker.observe(data)
 
-            # Feed the predictor (Newton's-law fit + stall detect)
-            chamber = data.get("furnaceTempMeasured")
+            # Feed the predictor (Newton's-law fit + stall detect).
+            # Override resolution: if the user has typed a trusted entity
+            # into the chamber/probe override text inputs (Setup tab),
+            # use that source instead of the OEM reading. Predictor's
+            # Newton's-law math is only as good as its inputs — overrides
+            # let users feed it ThermoMaven / instant-read truth temps.
+            chamber_oem = data.get("furnaceTempMeasured")
+            probe_1_oem = data.get("probeP1Measured")
+            probe_2_oem = data.get("probeP2Measured")
+
+            chamber = self._resolve_override("chamber_override", chamber_oem)
+            probe_1 = self._resolve_override("probe_1_override", probe_1_oem)
+            probe_2 = self._resolve_override("probe_2_override", probe_2_oem)
+
             if chamber is not None:
                 try:
                     self.predictor.observe(
                         ts=dt_util.utcnow(),
                         chamber=float(chamber),
-                        probe_1=data.get("probeP1Measured"),
-                        probe_2=data.get("probeP2Measured"),
+                        probe_1=probe_1,
+                        probe_2=probe_2,
                     )
                 except (TypeError, ValueError):
                     pass
@@ -305,6 +317,51 @@ class PrimePolarisCoordinator(DataUpdateCoordinator[dict[str, Any]]):
             }
         # When events go back to empty we keep last_alarm so the
         # sensor still shows the most recent alarm we observed.
+
+    # --- Override sources ------------------------------------
+
+    def _resolve_override(self, purpose: str, fallback) -> float | None:
+        """Read an override text input by purpose, resolve to a value.
+
+        - Empty / missing → returns `fallback` (the OEM reading)
+        - "domain.entity_id" → reads hass.states[that].state, parses as float
+        - "weather.X" → pulls from attributes.temperature
+        - Plain numeric string → parsed as literal value
+        - Anything that can't be resolved → returns fallback (don't break
+          the predictor on a typo)
+        """
+        tracker = getattr(self, "session_tracker", None)
+        if tracker is None:
+            return fallback
+        raw = tracker.get_input(purpose) if hasattr(tracker, "get_input") else ""
+        if not raw:
+            return fallback
+
+        raw = raw.strip()
+
+        # entity_id form
+        if "." in raw and " " not in raw:
+            state = self.hass.states.get(raw)
+            if state is None:
+                return fallback
+            # weather.* entities expose temperature in attributes
+            if raw.startswith("weather.") and state.attributes:
+                t = state.attributes.get("temperature")
+                if t is not None:
+                    try:
+                        return float(t)
+                    except (TypeError, ValueError):
+                        return fallback
+            try:
+                return float(state.state)
+            except (TypeError, ValueError):
+                return fallback
+
+        # Literal numeric value
+        try:
+            return float(raw)
+        except (TypeError, ValueError):
+            return fallback
 
     # --- Token management ------------------------------------
 
