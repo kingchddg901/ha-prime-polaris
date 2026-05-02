@@ -1,0 +1,12 @@
+{
+  "domain": "prime_polaris",
+  "name": "Pellet Grill",
+  "version": "0.2.0",
+  "config_flow": true,
+  "documentation": "https://github.com/kingchddg901/ha-prime-polaris",
+  "issue_tracker": "https://github.com/kingchddg901/ha-prime-polaris/issues",
+  "requirements": ["firebase-messaging>=0.4.5"],
+  "dependencies": [],
+  "codeowners": ["@kingchddg901"],
+  "iot_class": "cloud_push"
+}

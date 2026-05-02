@@ -1,0 +1,54 @@
+request_otp:
+  name: Request login OTP
+  description: >-
+    Send a 6-digit verification code to the given email address. Used by the
+    custom Lovelace card to drive re-authentication without leaving the card.
+  fields:
+    email:
+      name: Email
+      description: The Prime Polaris / GrillirG account email.
+      required: true
+      example: "user@example.com"
+      selector:
+        text:
+
+verify_otp:
+  name: Verify OTP and update token
+  description: >-
+    Exchange email + OTP for a fresh JWT, update the matching config entry,
+    and reload it. Replaces the active session token.
+  fields:
+    email:
+      name: Email
+      required: true
+      selector:
+        text:
+    otp:
+      name: Verification code
+      description: The 6-digit code emailed by request_otp.
+      required: true
+      example: "123456"
+      selector:
+        text:
+    entry_id:
+      name: Config entry
+      description: >-
+        Which entry's token to update. Omit if you only have one Prime Polaris
+        entry — it will be auto-selected.
+      required: false
+      selector:
+        config_entry:
+          integration: prime_polaris
+
+clear_cook_inputs:
+  name: Clear per-cook inputs
+  description: >-
+    Reset notes / protein / weight text entities. Default sensors
+    (ambient, wind) are NOT touched.
+  fields:
+    entry_id:
+      name: Config entry
+      required: false
+      selector:
+        config_entry:
+          integration: prime_polaris

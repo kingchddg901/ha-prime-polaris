@@ -1,0 +1,51 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Pellet Grill — Sign In",
+        "description": "Enter the email address associated with your GrillirG account. A verification code will be sent to that address.",
+        "data": {
+          "email": "Email Address"
+        }
+      },
+      "otp": {
+        "title": "Enter Verification Code",
+        "description": "A 6-digit code was sent to {email}. Enter it below.",
+        "data": {
+          "otp": "Verification Code"
+        }
+      },
+      "device": {
+        "title": "Select Your Grill",
+        "description": "Multiple grills found on your account. Select which one to add.",
+        "data": {
+          "device_id": "Grill"
+        }
+      },
+      "reauth_confirm": {
+        "title": "Re-authenticate",
+        "description": "Your session has expired. Enter your email to receive a new verification code.",
+        "data": {
+          "email": "Email Address"
+        }
+      },
+      "reauth_otp": {
+        "title": "Enter Verification Code",
+        "description": "A 6-digit code was sent to {email}. Enter it below.",
+        "data": {
+          "otp": "Verification Code"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Unable to connect to the Pellet Grill service. Check your internet connection.",
+      "invalid_auth": "Invalid verification code. Request a new one and try again.",
+      "no_devices": "No grills found on this account. Make sure your grill is set up in the GrillirG app first.",
+      "unknown": "An unexpected error occurred. Check the logs for details."
+    },
+    "abort": {
+      "already_configured": "This grill is already configured.",
+      "reauth_successful": "Re-authentication successful."
+    }
+  }
+}
