@@ -91,6 +91,19 @@ The integration writes one row per cook to `<config>/prime_polaris/sessions.csv`
 
 The cloud platform is `api.prime-polaris.com`, run by the OEM behind multiple grill brands. Discovery work was done by decompiling the official Android APK — credentials, endpoint shapes, push-event format all came from there. See the bundled [HACS card source](https://github.com/kingchddg901/ha-prime-polaris-card) for the matching frontend repo.
 
+## Documentation
+
+- [Setup walkthrough](docs/setup.md) — single-account and dual-account paths, step by step
+- [Cook predictor](docs/predictor.md) — Newton's-law math, stall detection, per-protein priors
+- [Cook sessions](docs/cook_sessions.md) — CSV schema and pandas analysis recipes
+- [Troubleshooting](docs/troubleshooting.md) — common issues and fixes
+- [API reference](docs/api.md) — every cloud endpoint we know about, field-by-field
+- [Development & architecture](docs/development.md) — module map, brand-generic vs brand-specific code, fork-for-sibling-brand guide
+
+## Forking for a sibling white-label
+
+The Prime Polaris cloud is the OEM platform behind multiple grill brands (Pit Boss WiFi confirmed, others likely on similar OEM hardware). If you have a grill running a different cloud but using the same controller architecture, the cook predictor, session logger, dual-account FCM pattern, and Lovelace card transplant cleanly — you mainly need to remap the cloud endpoints and field names. See [development.md → Forking for a sibling white-label](docs/development.md#forking-for-a-sibling-white-label).
+
 ## Issues
 
 Bug reports and feature requests: [github.com/kingchddg901/ha-prime-polaris/issues](https://github.com/kingchddg901/ha-prime-polaris/issues)
