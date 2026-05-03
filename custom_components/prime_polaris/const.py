@@ -143,11 +143,28 @@ RUNNING_STATUS_LABELS = {
 EVENT_ALARM = f"{DOMAIN}_alarm"
 
 # === FCM (Firebase Cloud Messaging) ===========================
-# The OEM (GrillirG / Prime Polaris) Firebase project. These
-# values are extracted from the official Android APK and shared
-# across all installations of the OEM platform — they identify
-# the messaging server, not any individual user. The user's per-
-# device FCM credentials are stored separately per config entry.
+#
+# Firebase publishable client credentials for the OEM project
+# (GrillirG / Prime Polaris). These ARE intentionally embedded
+# here and are NOT a leaked secret:
+#
+#   - They are extracted verbatim from the official Android APK
+#     on Google Play, where they're already public to anyone who
+#     downloads the app or inspects the package.
+#   - Firebase publishable keys identify a project to Google's
+#     SDK; they don't authorize anything by themselves. Per
+#     Firebase docs (https://firebase.google.com/docs/projects/
+#     api-keys), these can safely live in client-side source.
+#   - Per-user authentication is the JWT obtained via the email-
+#     OTP flow (api.py / config_flow.py); FCM token registration
+#     is gated by that JWT server-side.
+#
+# GitHub's secret-scanner flags the AIza... prefix because it's
+# the same shape as a Google Cloud Platform server-side API key,
+# but Firebase publishable keys share the prefix without sharing
+# the privilege. The alert can be closed as "Won't fix —
+# Firebase publishable client key, not a secret."
+#
 # Recovered from APK resources.arsc on 2026-05-02.
 
 FCM_PROJECT_ID = "grillirg-control"
