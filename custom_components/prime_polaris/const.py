@@ -198,7 +198,7 @@ TEMP_UNIT_CELSIUS = 1
 # === Smoke level =============================================
 
 SMOKE_LEVEL_MIN = 0
-SMOKE_LEVEL_MAX = 10
+SMOKE_LEVEL_MAX = 9   # controller clamps at 9 — empirically verified
 SMOKE_LEVEL_STEP = 1
 
 # === Resp codes ==============================================

@@ -5,7 +5,7 @@
  *
  * Provides numeric slider controls for grill settings:
  *
- *   - smoke_level:    Smoke intensity level (0–10)
+ *   - smoke_level:    Smoke intensity level (0–9)
  *   - probe_1_target: Meat probe 1 alert temperature
  *   - probe_2_target: Meat probe 2 alert temperature
  *
