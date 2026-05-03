@@ -1,6 +1,5 @@
 {
   "name": "Prime Polaris Pellet Grill",
   "render_readme": true,
-  "homeassistant": "2024.11.0",
-  "iot_class": "cloud_push"
+  "homeassistant": "2024.11.0"
 }
