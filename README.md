@@ -108,6 +108,10 @@ The Prime Polaris cloud is the OEM platform behind multiple grill brands (Pit Bo
 
 Bug reports and feature requests: [github.com/kingchddg901/ha-prime-polaris/issues](https://github.com/kingchddg901/ha-prime-polaris/issues)
 
+## Distribution scope
+
+This is a **HACS Custom Repository** — install via the Custom Repositories flow in HACS. It's deliberately *not* on the HACS default integration list and there's no plan to submit it. If someone wants to take this further (default HACS listing, brand assets PR to home-assistant/brands, ongoing default-list maintenance), the integration is MIT-licensed — fork it and run with it.
+
 ## License
 
 MIT
