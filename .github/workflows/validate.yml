@@ -15,6 +15,10 @@ jobs:
         uses: hacs/action@main
         with:
           category: integration
+          # Brands check requires submitting an icon PR to
+          # home-assistant/brands. Only needed for the HACS *default*
+          # listing — HACS Custom installs work fine without it.
+          ignore: brands
 
   hassfest:
     runs-on: ubuntu-latest
