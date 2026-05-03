@@ -343,8 +343,12 @@ class PrimePolarisApiClient:
         resp_msg = payload.get("respMessage", "Unknown error")
 
         if resp_code != RESP_CODE_SUCCESS:
-            # Auth errors use negative codes in the -1xxxx range
-            if resp_code in (-10001, -10002, -10003, -10007):
+            # Auth errors use negative codes in the -1xxxx range.
+            # -10108 is "session displaced by login elsewhere" — same
+            # remediation as a normal expired token (must reauth), but
+            # the cloud distinguishes the cause. Confirmed in the wild
+            # 2026-05-02 when a parallel session bumped this account.
+            if resp_code in (-10001, -10002, -10003, -10007, -10108):
                 raise PrimePolarisAuthError(
                     f"Auth error {resp_code}: {resp_msg}"
                 )
