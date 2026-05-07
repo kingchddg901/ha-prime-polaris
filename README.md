@@ -104,6 +104,10 @@ The cloud platform is `api.prime-polaris.com`, run by the OEM behind multiple gr
 
 The Prime Polaris cloud is the OEM platform behind multiple grill brands (Pit Boss WiFi confirmed, others likely on similar OEM hardware). If you have a grill running a different cloud but using the same controller architecture, the cook predictor, session logger, dual-account FCM pattern, and Lovelace card transplant cleanly — you mainly need to remap the cloud endpoints and field names. See [development.md → Forking for a sibling white-label](docs/development.md#forking-for-a-sibling-white-label).
 
+⚠️ Support status: hobby project, best-effort maintenance
+I built this for my own use and share it in case it helps others. I can't commit to long-term maintenance, fast issue response, or feature requests. If you rely on this, be prepared to fork it or find a community maintainer if I step away.
+PRs welcome. Issues may go unanswered.
+
 ## Issues
 
 Bug reports and feature requests: [github.com/kingchddg901/ha-prime-polaris/issues](https://github.com/kingchddg901/ha-prime-polaris/issues)
